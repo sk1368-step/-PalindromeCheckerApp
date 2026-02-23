@@ -1,25 +1,24 @@
 /**
- * MAIN CLASS UseCase9PalindromeCheckerApp
+ * MAIN CLASS UseCase10PalindromeCheckerApp
  * =======================================
- * Use Case 9: Palindrome Check Using Recursion
+ * Use Case 10: Palindrome Check Ignoring Spaces and Case
  *
  * Description:
  * This program checks whether a string is a palindrome
- * by recursively comparing characters from start and end
- * indices using the call stack.
+ * while ignoring spaces, punctuation, and case differences.
  *
  * Flow:
- * - Recursive call compares start & end
- * - Base condition exits recursion
+ * - Normalize string (remove non-alphanumeric, convert to lowercase)
+ * - Apply previous palindrome logic (using two-pointer)
  * - Display result
  *
  * Key Concepts:
- * - Recursion
- * - Base Condition
- * - Call Stack
+ * - String preprocessing
+ * - Regular expressions
+ * - Data Structure: String / Array
  *
- * @author Developer
- * @version 1.0
+ * Author: Developer
+ * Version: 1.0
  */
 
 public class PalindromeCheckerApp {
@@ -29,40 +28,46 @@ public class PalindromeCheckerApp {
      */
     public static void main(String[] args) {
 
-        String word = "level";
+        String input = "A man a plan a canal Panama";
 
-        boolean isPalindrome = isPalindromeRecursive(word, 0, word.length() - 1);
+        // Step 1: Normalize string
+        String normalized = input.replaceAll("[^a-zA-Z0-9]", "")  // Remove non-alphanumeric
+                .toLowerCase();                   // Convert to lowercase
 
+        // Step 2: Apply two-pointer palindrome check
+        boolean isPalindrome = isPalindrome(normalized);
+
+        // Step 3: Display result
         if (isPalindrome) {
-            System.out.println("The word \"" + word + "\" is a Palindrome.");
+            System.out.println("The input \"" + input + "\" is a Palindrome (ignoring spaces and case).");
         } else {
-            System.out.println("The word \"" + word + "\" is NOT a Palindrome.");
+            System.out.println("The input \"" + input + "\" is NOT a Palindrome (ignoring spaces and case).");
         }
 
         System.out.println("Program execution completed.");
     }
 
     /**
-     * Recursive method to check palindrome.
+     * Two-pointer palindrome check
      *
-     * @param str   Original string
-     * @param start Start index
-     * @param end   End index
+     * @param str Normalized string
      * @return true if palindrome, false otherwise
      */
-    public static boolean isPalindromeRecursive(String str, int start, int end) {
+    public static boolean isPalindrome(String str) {
 
-        // Base condition: crossed indices or single character
-        if (start >= end) {
-            return true;
+        int start = 0;
+        int end = str.length() - 1;
+
+        while (start < end) {
+
+            if (str.charAt(start) != str.charAt(end)) {
+                return false;
+            }
+
+            start++;
+            end--;
         }
 
-        // If characters at current positions do not match
-        if (str.charAt(start) != str.charAt(end)) {
-            return false;
-        }
-
-        // Recursive call: move inward
-        return isPalindromeRecursive(str, start + 1, end - 1);
+        return true;
     }
 }
