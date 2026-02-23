@@ -1,25 +1,29 @@
+import java.util.LinkedList;
+import java.util.Queue;
 import java.util.Stack;
 
 /**
- * MAIN CLASS UseCase5PalindromeCheckerApp
+ * MAIN CLASS UseCase6PalindromeCheckerApp
  * =======================================
- * Use Case 5: Palindrome Check Using Stack
+ * Use Case 6: FIFO vs LIFO Demonstration
  *
  * Description:
- * This program checks whether a string is a palindrome
- * by pushing characters onto a stack and then popping
- * them to compare with the original string.
+ * This program demonstrates the difference between
+ * Queue (FIFO) and Stack (LIFO) by inserting the same
+ * characters into both structures and comparing their
+ * removal behavior to validate palindrome logic.
  *
  * Flow:
- * - Push characters into stack
- * - Pop and compare
- * - Print result
+ * - Enqueue characters into Queue (FIFO)
+ * - Push characters into Stack (LIFO)
+ * - Compare Dequeue vs Pop results
+ * - Display result
  *
  * @author Developer
  * @version 1.0
  */
 
-public class UseCase5PalindromeCheckerApp {
+public class UseCase6PalindromeCheckerApp {
 
     /**
      * Application entry point.
@@ -30,31 +34,37 @@ public class UseCase5PalindromeCheckerApp {
     public static void main(String[] args) {
 
         // Original string
-        String word = "madam";
+        String word = "level";
 
-        // Create a Stack of Characters
+        // Create Queue (FIFO)
+        Queue<Character> queue = new LinkedList<>();
+
+        // Create Stack (LIFO)
         Stack<Character> stack = new Stack<>();
 
-        // Push each character into the stack
+        // Insert characters into both structures
         for (int i = 0; i < word.length(); i++) {
-            stack.push(word.charAt(i));   // Push operation
+            char ch = word.charAt(i);
+
+            queue.add(ch);     // Enqueue operation
+            stack.push(ch);    // Push operation
         }
 
-        // Flag to track palindrome status
         boolean isPalindrome = true;
 
-        // Pop characters and compare with original
-        for (int i = 0; i < word.length(); i++) {
+        // Compare dequeue (FIFO) with pop (LIFO)
+        while (!queue.isEmpty()) {
 
-            char poppedChar = stack.pop();   // Pop operation
+            char fromQueue = queue.remove();  // Dequeue (FIFO)
+            char fromStack = stack.pop();     // Pop (LIFO)
 
-            if (word.charAt(i) != poppedChar) {
+            if (fromQueue != fromStack) {
                 isPalindrome = false;
                 break;
             }
         }
 
-        // Print result
+        // Display result
         if (isPalindrome) {
             System.out.println("The word \"" + word + "\" is a Palindrome.");
         } else {
