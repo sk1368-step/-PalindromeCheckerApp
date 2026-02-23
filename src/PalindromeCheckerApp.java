@@ -1,23 +1,23 @@
 /**
- * MAIN CLASS UseCase2PalindromeCheckerApp
+ * MAIN CLASS UseCase3PalindromeCheckerApp
  * =======================================
- * Use Case 2: Hardcoded Palindrome Check
+ * Use Case 3: Reverse String Using Loop
  *
  * Description:
- * This class checks whether a hardcoded string
- * is a palindrome and prints the result.
+ * This program checks whether a string is a palindrome
+ * by reversing it using a for loop and comparing
+ * the original and reversed strings.
  *
  * Flow:
- * - Program starts
- * - Hardcoded string is checked
- * - Result is printed
- * - Program exits
+ * - Reverse string using loop
+ * - Compare original and reversed
+ * - Display result
  *
  * @author Developer
  * @version 1.0
  */
 
-public class UseCase2PalindromeCheckerApp {
+public class UseCase3PalindromeCheckerApp {
 
     /**
      * Application entry point.
@@ -27,21 +27,22 @@ public class UseCase2PalindromeCheckerApp {
      */
     public static void main(String[] args) {
 
-        // Hardcoded string literal
-        String word = "madam";
+        // Original string
+        String original = "level";
 
-        // Reverse the string
+        // Variable to store reversed string
         String reversed = "";
 
-        for (int i = word.length() - 1; i >= 0; i--) {
-            reversed += word.charAt(i);
+        // Loop to reverse the string
+        for (int i = original.length() - 1; i >= 0; i--) {
+            reversed = reversed + original.charAt(i);  // String concatenation
         }
 
-        // Check palindrome using conditional statement
-        if (word.equals(reversed)) {
-            System.out.println("The word \"" + word + "\" is a Palindrome.");
+        // Compare using equals() method
+        if (original.equals(reversed)) {
+            System.out.println("The word \"" + original + "\" is a Palindrome.");
         } else {
-            System.out.println("The word \"" + word + "\" is NOT a Palindrome.");
+            System.out.println("The word \"" + original + "\" is NOT a Palindrome.");
         }
 
         System.out.println("Program execution completed.");
