@@ -1,44 +1,39 @@
 /**
- * MAIN CLASS UseCase10PalindromeCheckerApp
- * =======================================
- * Use Case 10: Palindrome Check Ignoring Spaces and Case
+ * MAIN CLASS UseCase11PalindromeCheckerApp
+ * ========================================
+ * Use Case 11: Encapsulated Palindrome Checker (OOP Version)
  *
  * Description:
- * This program checks whether a string is a palindrome
- * while ignoring spaces, punctuation, and case differences.
+ * This program encapsulates palindrome logic inside a separate class.
  *
  * Flow:
- * - Normalize string (remove non-alphanumeric, convert to lowercase)
- * - Apply previous palindrome logic (using two-pointer)
+ * - Create PalindromeChecker object
+ * - Call checkPalindrome() method
  * - Display result
  *
  * Key Concepts:
- * - String preprocessing
- * - Regular expressions
- * - Data Structure: String / Array
+ * - Encapsulation
+ * - Single Responsibility Principle
+ * - Internal Data Structure (Array-based two-pointer logic)
  *
  * Author: Developer
- * Version: 1.0
+ * Version: 2.0
  */
 
 public class PalindromeCheckerApp {
 
-    /**
-     * Application entry point.
-     */
     public static void main(String[] args) {
 
         String input = "A man a plan a canal Panama";
 
-        // Step 1: Normalize string
-        String normalized = input.replaceAll("[^a-zA-Z0-9]", "")  // Remove non-alphanumeric
-                .toLowerCase();                   // Convert to lowercase
+        // Create object of PalindromeChecker
+        PalindromeChecker checker = new PalindromeChecker();
 
-        // Step 2: Apply two-pointer palindrome check
-        boolean isPalindrome = isPalindrome(normalized);
+        // Call encapsulated method
+        boolean result = checker.checkPalindrome(input);
 
-        // Step 3: Display result
-        if (isPalindrome) {
+        // Display result
+        if (result) {
             System.out.println("The input \"" + input + "\" is a Palindrome (ignoring spaces and case).");
         } else {
             System.out.println("The input \"" + input + "\" is NOT a Palindrome (ignoring spaces and case).");
@@ -46,24 +41,44 @@ public class PalindromeCheckerApp {
 
         System.out.println("Program execution completed.");
     }
+}
+
+/**
+ * PalindromeChecker Class
+ * ------------------------
+ * Responsibility:
+ * Handles palindrome validation logic only.
+ */
+class PalindromeChecker {
 
     /**
-     * Two-pointer palindrome check
+     * Public method to check palindrome.
+     * Handles normalization + validation.
      *
-     * @param str Normalized string
+     * @param input Original string
      * @return true if palindrome, false otherwise
      */
-    public static boolean isPalindrome(String str) {
+    public boolean checkPalindrome(String input) {
 
+        if (input == null) {
+            return false;
+        }
+
+        // Step 1: Normalize string
+        String normalized = input.replaceAll("[^a-zA-Z0-9]", "")
+                .toLowerCase();
+
+        // Step 2: Convert to char array (internal data structure)
+        char[] chars = normalized.toCharArray();
+
+        // Step 3: Two-pointer comparison
         int start = 0;
-        int end = str.length() - 1;
+        int end = chars.length - 1;
 
         while (start < end) {
-
-            if (str.charAt(start) != str.charAt(end)) {
+            if (chars[start] != chars[end]) {
                 return false;
             }
-
             start++;
             end--;
         }
